@@ -1,15 +1,15 @@
-# Scraper_documentation
+# Scraper For Publications
 Here is a documentation about my methodology to create scrapers and current challenges using Python. 
 
 Updated on 06/05/2023
 
 Motivation: Many publications have their own website to view news online, and send subscribers corresponding emails for the news. Generally, the emails come in seconds of delay and may only be separate links to view the full content. If creating scrapers that can directly scrape the website under a PROPER refreshing rate, and send a email including new content when the scrapers detect the change, then we can most likely beat the delays and directly view news in a customized way, such as highlighting keywords, etc. 
 
-**Steps to create scrapers**
+## Steps to create scrapers
 
 1. Investigate the target website on its structure, and what needs to be scraped. And what format the content is.
 
-2. Understand what the refreshing rate should be, and what human interaction should be like if viewing and downloading content from the publications. 
+2. Understand what the **refreshing rate** should be (wrong refreshing rate can be marked as abnormal activity and cancelled out your subscription!), and what human interaction should be like if viewing and downloading content from the publications. 
 
 3. Start to code and follow the exact same way as a human interacts with the website.  
 
@@ -90,21 +90,67 @@ Steps:
 4. Login to the publication page first time with credentials
 5. Run selenium with Option that indicates the localhost. 
 
-Code: 
+    Code: 
+    ``` Python
+    #package
+    from selenium.webdriver.chrome.options import Options
+    #e.g.
+    o = Options()
+    url= 'https://www.google.com/'
+    o.add_experimental_option('debuggerAddress','localhost:9102')
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=o)
+    ```
+
+## Ways to setup outlook email and potential NLP analysis
+
+Email (Outlook)
+---
+I used Outlook for email distribution. Here is a brief introduction on how to setup outlook email for sending email through Python. We can created a bag of words that includes all the words that need to be highlighted, so in the email we can directly mark the key words to increase readibility. 
+
+Method: [win32com.client]() (Dispatch)
+
 ``` Python
-#package
-from selenium.webdriver.chrome.options import Options
-#e.g.
-o = Options()
-url= 'https://www.google.com/'
-o.add_experimental_option('debuggerAddress','localhost:9102')
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=o)
+outlook=Dispatch('Outlook.Application')
+mail = outlook.CreateItem(0)
+mail.SentOnBehalfOfName ='@gmail.com'
+mail.To='@gmail.com'
+mail.Subject = 'HEADLINE'
+article = texts.replace('\n','<br> ')
+article_s = article.split()
+Words=pd.read_excel('PATH TO BAGS OF WORDS',sheet_name='Sheet2')
+words=list(Words['Bag of Words'])
+for i in article_s:    
+    lower=list(map(lambda x: x.lower(),words))
+    highlight='<span style=background:yellow;mso-highlight:yellow>'
+    if i.lower() in lower:
+        article_temp=list(map(lambda x: x.replace(i,highlight+i+'</span>'),article_s))
+        mail.SentOnBehalfOfName = '@gmail.com'
+        mail.To='@gmail.com'
+article_final=' '.join(article_temp)
+mail.HTMLBody = ("""{} <br><br>
+                    Publish Date: {} <br><br>
+                    Source: {}<br>
+                {}<br><br>""".format(new_headline,publish_time,'PUBLICATION NAME',article_final))
+mail.Display()
 ```
 
-**Ways to setup outlook email and potential NLP analysis**
-
-Email
+Potential NLP analysis
 ---
-I used Outlook for email distribution. Here is a brief introduction on how to setup outlook email for sending email through Python. 
+Vectorizing the words using  ```sklearn```, we can then use TF-IDF to normalize the frency of words appearing in the article. And using PCA, we can extract key words from the entire content, largely reducing understanding time. 
 
-Method: 
+Method: [sklearn]()(feature_extraction.text), [nltk](corpus, stopwords)
+
+
+``` Python
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import CounterVectorizer
+cv = CountVectorizer(max_features = 1500)
+x = cv.fit_transform(corpus).toarray()
+
+```
+
+
+Another way is that we can first implement a bag of positive words that appeared in the past content, and check through entire content to see the percentage of positive words appearing to the words. 
+
