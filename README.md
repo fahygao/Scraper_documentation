@@ -33,7 +33,7 @@ Motivation: Many publications have their own website to view news online, and se
     #e.g.
     content = driver.find_element("xpath",'THE_RIGHT_XPATH')
     ```
-2. Image: we cannot cope and select the content and the news stores as a image on the website. 
+2. Image: cannot be copied or be selected the content and the news stores as a image on the website. 
 
     Method: Selenium (webdriver, screenshot), PIL (image), pytesseract (read texts from images), optional: BeautifulSoup
 
@@ -57,9 +57,9 @@ Motivation: Many publications have their own website to view news online, and se
 
     PS: some publication websites have watermark behind the content, so it is hard for pytesseract to recognize the words. Solution: expand the window size when taking screenshot, and normally the watermark will be more separate and less dense. 
 
-3. PDF: cannot select the content and news shows as a pdf on the wesbite. User can download the content as a pdf. 
+3. PDF: cannot be selected and news shows as a pdf on the wesbite. User can download the content as a pdf. 
 
-    Method: Selenium (webdriver), [PyPDF2](https://pypi.org/project/PyPDF2/)()
+    Method: Selenium (webdriver), [PyPDF2](https://pypi.org/project/PyPDF2/) (Extract words from pdf)
 
     ```Python
     #packages
@@ -74,5 +74,27 @@ Motivation: Many publications have their own website to view news online, and se
         texts.append(text)
     texts=' '.join(texts)
     ```
-4. Secured message 
-    PS: some website requires a login eve
+4. Secured content cannot select: connect be selected and content element in html has class "unselectable".
+
+    Method: Selenium (webdrive)
+
+    Note: this is fairly easy. If the content element only has the bigger container as unselectable, we can just use the sub-element for the rest of the content. But if all the content elements are unselectable, we can mimic ```cirl+P``` to print out the page and read the content from pdf. If the above two methods are not efficient,  we should try mimic the way of (2). 
+
+
+PS: some websites of the publications requires a login verification everytime when we visit the website, so we can try to use Option and set up a local host first, then the scraper program will always use the same chrome broswer window to scrape the content.  
+    steps: 
+        1. Create a new folder with the publication name
+        2. Open Terminal ```cd C:\Program Files \Google\Chrome\Application```
+        3. Start the chrome broswer in the publication folder: 
+            ```chrome.exe --remote-debugging-port=9102 --user-data-dir="PATH"```
+        4. Login to the publication page first time with credentials
+        5. Run selenium with Option that indicates the localhost. 
+
+    ```Python
+    #package
+    from selenium.webdriver.chrome.options import Options
+    #e.g.
+    o = Options()
+    url="https://www.google.com/"
+    o.add_experimental_option("debuggerAddress","localhost:9102")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=o)
