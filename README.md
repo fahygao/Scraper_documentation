@@ -35,18 +35,44 @@ Motivation: Many publications have their own website to view news online, and se
     ```
 2. Image: we cannot cope and select the content and the news stores as a image on the website. 
 
-    Method: Selenium (webdriver, screenshot), PIL(image), pytesseract(read texts from images) 
+    Method: Selenium (webdriver, screenshot), PIL (image), pytesseract (read texts from images), optional: BeautifulSoup
 
     ```Python
     #packages
     from selenium import webdriver
     import pytesseract
     from PIL import Image
+    #optional
+    from bs4 import BeautifulSoup 
     #e.g.
     driver.find_element(By.CLASS_NAME, 'content-div').screenshot(p)
     image = Image.open("PATH{}.png".format(str(n)))
     custom_config = r'--oem 3 --psm 6'
     article = pytesseract.image_to_string(image,config=custom_config)
+
+    #optional
+    soup_level=BeautifulSoup(driver.page_source,'lxml')
+    article1=soup_level.find('div',class_="article_body")
     ```
-3. PDF: cannot select and 
+
+    PS: some publication websites have watermark behind the content, so it is hard for pytesseract to recognize the words. Solution: expand the window size when taking screenshot, and normally the watermark will be more separate and less dense. 
+
+3. PDF: cannot select the content and news shows as a pdf on the wesbite. User can download the content as a pdf. 
+
+    Method: 
+
+    ```Python
+    #packages
+    from selenium import webdriver
+    import PyPDF2
+    #e.g.
+    pdffileobj=open(path1,'rb')
+    pdfreader=PyPDF2.PdfReader(pdffileobj)
+    for i in range(x):
+        pageobj=pdfreader.pages[i]
+        text=pageobj.extract_text()
+        texts.append(text)
+    texts=' '.join(texts)
+    ```
+4. Secured message 
     PS: some website requires a login eve
