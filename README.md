@@ -9,7 +9,7 @@ Motivation: Many publications have their own website to view news online, and se
 
 1. Investigate the target website on its structure, and what needs to be scraped. And what format the content is.
 
-2. Understand what the **refreshing rate** should be (wrong refreshing rate can be marked as abnormal activity and cancelled out your subscription!), and what human interaction should be like if viewing and downloading content from the publications. 
+2. Understand what the **refreshing rate** should be (wrong refreshing rate can be marked as abnormal activity and you might be involved with legal issues!), and what human interaction should be like if viewing and downloading content from the publications. 
 
 3. Start to code and follow the exact same way as a human interacts with the website.  
 
