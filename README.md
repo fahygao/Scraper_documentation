@@ -89,8 +89,8 @@ PS: some websites of the publications requires a login verification everytime wh
             ```chrome.exe --remote-debugging-port=9102 --user-data-dir="PATH"```
         4. Login to the publication page first time with credentials
         5. Run selenium with Option that indicates the localhost. 
-
-    ``` Python
+    ```Python
+    #packages
     #package
     from selenium.webdriver.chrome.options import Options
     #e.g.
@@ -98,5 +98,7 @@ PS: some websites of the publications requires a login verification everytime wh
     url="https://www.google.com/"
     o.add_experimental_option("debuggerAddress","localhost:9102")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=o)
+    texts=' '.join(texts)
     ```
+
 
