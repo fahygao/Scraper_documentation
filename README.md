@@ -59,7 +59,7 @@ Motivation: Many publications have their own website to view news online, and se
 
 3. PDF: cannot select the content and news shows as a pdf on the wesbite. User can download the content as a pdf. 
 
-    Method: 
+    Method: Selenium (webdriver), [PyPDF2](https://pypi.org/project/PyPDF2/)()
 
     ```Python
     #packages
