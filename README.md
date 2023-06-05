@@ -82,13 +82,15 @@ Motivation: Many publications have their own website to view news online, and se
 
 
 PS: some websites of the publications requires a login verification everytime when we visit the website, so we can try to use Option and set up a local host first, then the scraper program will always use the same chrome broswer window to scrape the content.  
-    steps: 
+    Steps: 
         1. Create a new folder with the publication name
         2. Open Terminal ```cd C:\Program Files \Google\Chrome\Application```
         3. Start the chrome broswer in the publication folder: 
             ```chrome.exe --remote-debugging-port=9102 --user-data-dir="PATH"```
         4. Login to the publication page first time with credentials
         5. Run selenium with Option that indicates the localhost. 
+        
+     Code: 
     ```Python
     #packages
     #package
