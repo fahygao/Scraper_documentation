@@ -20,7 +20,7 @@ Motivation: Many publications have their own website to view news online, and se
 
 1. Embeded html element: we can directly copy and past all the content on the website using xpath. XPATH can be found from browser's inspect section. 
 
-   Method: Selenium (webdriver) 
+   Method: [Selenium](https://pypi.org/project/selenium/) (webdriver) 
 
    ```Python
     #packages
@@ -35,7 +35,7 @@ Motivation: Many publications have their own website to view news online, and se
     ```
 2. Image: cannot be copied or be selected the content and the news stores as a image on the website. 
 
-    Method: Selenium (webdriver, screenshot), PIL (image), pytesseract (read texts from images), optional: BeautifulSoup
+    Method: [Selenium](https://pypi.org/project/selenium/) (webdriver, screenshot), [PIL](https://pypi.org/project/Pillow/) (image), [pytesseract](https://pypi.org/project/pytesseract/) (read texts from images), optional: [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/)
 
     ```Python
     #packages
@@ -59,7 +59,7 @@ Motivation: Many publications have their own website to view news online, and se
 
 3. PDF: cannot be selected and news shows as a pdf on the wesbite. User can download the content as a pdf. 
 
-    Method: Selenium (webdriver), [PyPDF2](https://pypi.org/project/PyPDF2/) (Extract words from pdf)
+    Method: [Selenium](https://pypi.org/project/selenium/) (webdriver), [PyPDF2](https://pypi.org/project/PyPDF2/) (Extract words from pdf)
 
     ```Python
     #packages
@@ -76,30 +76,28 @@ Motivation: Many publications have their own website to view news online, and se
     ```
 4. Secured content cannot select: connect be selected and content element in html has class "unselectable".
 
-    Method: Selenium (webdrive)
+    Method: [Selenium](https://pypi.org/project/selenium/) (webdrive)
 
     Note: this is fairly easy. If the content element only has the bigger container as unselectable, we can just use the sub-element for the rest of the content. But if all the content elements are unselectable, we can mimic ```cirl+P``` to print out the page and read the content from pdf. If the above two methods are not efficient,  we should try mimic the way of (2). 
 
 
 PS: some websites of the publications requires a login verification everytime when we visit the website, so we can try to use Option and set up a local host first, then the scraper program will always use the same chrome broswer window to scrape the content.  
-    Steps: 
+    steps: 
         1. Create a new folder with the publication name
         2. Open Terminal ```cd C:\Program Files \Google\Chrome\Application```
         3. Start the chrome broswer in the publication folder: 
             ```chrome.exe --remote-debugging-port=9102 --user-data-dir="PATH"```
         4. Login to the publication page first time with credentials
         5. Run selenium with Option that indicates the localhost. 
-        
-     Code:
-    ```
+
+    ``` Python
     #package
     from selenium.webdriver.chrome.options import Options
     #e.g.
     o = Options()
-    url="https://www.google.com/"
-    o.add_experimental_option("debuggerAddress","localhost:9102")
+    url= 'https://www.google.com/'
+    o.add_experimental_option('debuggerAddress','localhost:9102')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=o)
-    texts=' '.join(texts)
     ```
 
 
