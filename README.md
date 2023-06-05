@@ -90,7 +90,7 @@ PS: some websites of the publications requires a login verification everytime wh
         4. Login to the publication page first time with credentials
         5. Run selenium with Option that indicates the localhost. 
 
-    ```Python
+    ``` Python
     #package
     from selenium.webdriver.chrome.options import Options
     #e.g.
@@ -98,3 +98,5 @@ PS: some websites of the publications requires a login verification everytime wh
     url="https://www.google.com/"
     o.add_experimental_option("debuggerAddress","localhost:9102")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=o)
+    ```
+
