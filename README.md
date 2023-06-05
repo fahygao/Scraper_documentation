@@ -90,9 +90,8 @@ PS: some websites of the publications requires a login verification everytime wh
         4. Login to the publication page first time with credentials
         5. Run selenium with Option that indicates the localhost. 
         
-     Code: 
-    ```Python
-    #packages
+     Code:
+    ```
     #package
     from selenium.webdriver.chrome.options import Options
     #e.g.
