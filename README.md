@@ -90,7 +90,6 @@ Steps:
 4. Login to the publication page first time with credentials
 5. Run selenium with Option that indicates the localhost. 
 
-    Code: 
     ``` Python
     #package
     from selenium.webdriver.chrome.options import Options
@@ -138,7 +137,7 @@ Potential NLP analysis
 ---
 Vectorizing the words using  ```sklearn```, we can then use TF-IDF to normalize the frency of words appearing in the article. And using PCA, we can extract key words from the entire content, largely reducing understanding time. 
 
-Method: [sklearn]()(feature_extraction.text), [nltk](corpus, stopwords)
+Method: [sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html)(feature_extraction.text), [nltk](https://pypi.org/project/nltk/)(corpus, stopwords)
 
 
 ``` Python
