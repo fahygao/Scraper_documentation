@@ -158,7 +158,7 @@ Another way is that we can first implement a bag of positive words that appeared
 In general, the programs are written in the logic that once scraper detect the changes on the most recent title (or whole page). It will scrap news content appeared as the first change. So all programs have the potential risks of skipping news if multiple news coming out at the same time on the website, or news is updated to different pages. And no matter what reason causes the scrapers down, it is designed to automatically send a stop alert email to you with error info. 
 
 Here are the issues I have encountered:
-1. Website might show permission denied due to too many refreshing attempts. 
+1. Website might show permission denied due to too many refreshing attempts (frequently happen to governor websites). 
    1. Temporary solution: I have to wait for another 5 mins or clear out the cookies to open the website again. 
 3. Website might auto log out after a certain time. This varies from different publication websites. 
    1. Temporary solution is to detect the element of log-in page and re-login when we cannot detect title element. 
