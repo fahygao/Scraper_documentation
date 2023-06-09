@@ -154,7 +154,7 @@ x = cv.fit_transform(corpus).toarray()
 Another way is that we can first implement a bag of positive words that appeared in the past content, and check through entire content to see the percentage of positive words appearing to the words. 
 
 
-## Current Difficulties and limitation
+## Current logic and limitations
 In general, the programs are written in the logic that once scraper detect the changes on the most recent title (or whole page). It will scrap news content appeared as the first change. So all programs have the potential risks of skipping news if multiple news coming out at the same time on the website, or news is updated to different pages. And no matter what reason causes the scrapers down, it is designed to automatically send a stop alert email to you with error info. 
 
 Here are the issues I have encountered:
