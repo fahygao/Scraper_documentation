@@ -153,3 +153,22 @@ x = cv.fit_transform(corpus).toarray()
 
 Another way is that we can first implement a bag of positive words that appeared in the past content, and check through entire content to see the percentage of positive words appearing to the words. 
 
+
+## Current Difficulties and limitation
+In general, the programs are written in the logic that once scraper detect the changes on the most recent title (or whole page). It will scrap news content appeared as the first change. So all programs have the potential risks of skipping news if multiple news coming out at the same time on the website, or news is updated to different pages. And no matter what reason causes the scrapers down, it is designed to automatically send a stop alert email to you with error info. 
+
+Here are the issues I have encountered:
+1. Website might show permission denied due to too many refreshing attempts. 
+   1. Temporary solution: I have to wait for another 5 mins or clear out the cookies to open the website again. 
+3. Website might auto log out after a certain time. This varies from different publication websites. 
+   1. Temporary solution is to detect the element of log-in page and re-login when we cannot detect title element. 
+4. Website might publish two or three news at the same time. 
+   1.  Temporary solution: manually send out all the missed news content. 
+5. Website might publish news not in a time order. So it might revise the old news but not show up on the website as a latest news.
+   1.  Temporary solution: manually send out the revised old news content.
+6. Website might delete the news within 1-2 seconds due to typo or any other reason, so scraper will stop and show 404 error. 
+   1.  Temporary solution: report and restart the scraper
+7. Website might be down due to system maintenance (rarely). 
+   1.  Temporary solution: report and wait for website to be open again. 
+8. Webste might have anti-scrape logic so we have to open the news content page twice to be able to locate content and back to main page (only happen to CMC).
+   1.  Temporary solution: programed to let scraper open new news twice and close one of the new news window and change handle back to main page. **It is still not working idealy.**
